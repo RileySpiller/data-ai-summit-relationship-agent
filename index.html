@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An applied AI workflow app for turning Data + AI Summit conversations into structured follow-ups, fit signals, and next actions."
+    />
+    <title>Data + AI Summit Relationship Agent</title>
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="App summary">
+        <div class="brand">
+          <img src="./assets/relationship-map.svg" alt="" class="brand-mark" />
+          <div>
+            <p class="eyebrow">Applied AI Workflow</p>
+            <h1>Summit Relationship Agent</h1>
+          </div>
+        </div>
+
+        <div class="signal-card">
+          <span class="signal-dot"></span>
+          <div>
+            <strong>Goal</strong>
+            <p>Turn messy conference conversations into ranked follow-ups, role signals, and company-fit notes.</p>
+          </div>
+        </div>
+
+        <nav class="nav-stack" aria-label="Primary">
+          <a href="#dashboard">Dashboard</a>
+          <a href="#intake">Add Contact</a>
+          <a href="#pipeline">Pipeline</a>
+          <a href="#targets">Target Fit</a>
+          <a href="#exports">Exports</a>
+        </nav>
+
+        <section class="proof-note">
+          <h2>Why this exists</h2>
+          <p>
+            FDE work starts in ambiguity: who did we meet, what matters, where is the business problem,
+            and what should happen next?
+          </p>
+        </section>
+      </aside>
+
+      <main>
+        <section class="hero" id="dashboard">
+          <div>
+            <p class="eyebrow">Data + AI Summit 2026</p>
+            <h2>From hallway notes to useful next actions.</h2>
+            <p class="hero-copy">
+              A working prototype for relationship capture, opportunity scoring, follow-up drafting,
+              and target-company prioritization.
+            </p>
+          </div>
+          <div class="hero-actions">
+            <button class="primary-action" id="loadDemoButton" type="button">Load demo data</button>
+            <button class="secondary-action" id="resetButton" type="button">Reset</button>
+          </div>
+        </section>
+
+        <section class="metric-grid" aria-label="Relationship metrics">
+          <article class="metric">
+            <span id="metricContacts">0</span>
+            <p>contacts</p>
+          </article>
+          <article class="metric">
+            <span id="metricPriority">0</span>
+            <p>high priority</p>
+          </article>
+          <article class="metric">
+            <span id="metricFde">0</span>
+            <p>FDE signals</p>
+          </article>
+          <article class="metric">
+            <span id="metricFollowups">0</span>
+            <p>follow-ups due</p>
+          </article>
+        </section>
+
+        <section class="workspace-grid">
+          <article class="panel" id="intake">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Capture</p>
+                <h2>Add a relationship note</h2>
+              </div>
+              <button class="icon-button" id="sampleNoteButton" type="button" aria-label="Insert sample note" title="Insert sample note">
+                +
+              </button>
+            </div>
+
+            <form id="contactForm" class="contact-form">
+              <label>
+                Name
+                <input id="nameInput" name="name" autocomplete="off" placeholder="Brooke Wenig" required />
+              </label>
+              <label>
+                Company
+                <input id="companyInput" name="company" autocomplete="off" placeholder="Databricks" required />
+              </label>
+              <label>
+                Role or relationship
+                <input id="roleInput" name="role" autocomplete="off" placeholder="AI FDE leader, recruiter, founder, engineer" />
+              </label>
+              <label>
+                Notes
+                <textarea
+                  id="notesInput"
+                  name="notes"
+                  rows="7"
+                  placeholder="Met after the GenAI session. Talked about FDE roles, production RAG, customer discovery, and building proof with Databricks APIs."
+                  required
+                ></textarea>
+              </label>
+              <div class="form-row">
+                <label>
+                  Warmth
+                  <select id="warmthInput" name="warmth">
+                    <option value="warm">Warm</option>
+                    <option value="new">New</option>
+                    <option value="strong">Strong</option>
+                    <option value="cold">Cold</option>
+                  </select>
+                </label>
+                <label>
+                  Next timing
+                  <select id="timingInput" name="timing">
+                    <option value="today">Today</option>
+                    <option value="tomorrow">Tomorrow</option>
+                    <option value="this-week">This week</option>
+                    <option value="later">Later</option>
+                  </select>
+                </label>
+              </div>
+              <button class="primary-action full" type="submit">Analyze and add</button>
+            </form>
+          </article>
+
+          <article class="panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Agent Read</p>
+                <h2>Priority queue</h2>
+              </div>
+              <select id="filterSelect" aria-label="Filter contacts">
+                <option value="all">All</option>
+                <option value="high">High priority</option>
+                <option value="fde">FDE signal</option>
+                <option value="follow-up">Needs follow-up</option>
+              </select>
+            </div>
+            <div class="contact-list" id="contactList"></div>
+          </article>
+        </section>
+
+        <section class="panel" id="pipeline">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Workflow</p>
+              <h2>Follow-up pipeline</h2>
+            </div>
+          </div>
+          <div class="pipeline" id="pipelineBoard"></div>
+        </section>
+
+        <section class="workspace-grid">
+          <article class="panel" id="targets">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Target Fit</p>
+                <h2>Companies to prioritize</h2>
+              </div>
+            </div>
+            <div class="target-list" id="targetList"></div>
+          </article>
+
+          <article class="panel" id="exports">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Output</p>
+                <h2>Export packet</h2>
+              </div>
+            </div>
+            <div class="export-actions">
+              <button class="secondary-action" id="copyJsonButton" type="button">Copy JSON</button>
+              <button class="secondary-action" id="copyCsvButton" type="button">Copy CSV</button>
+              <button class="secondary-action" id="copyMarkdownButton" type="button">Copy follow-up brief</button>
+            </div>
+            <textarea id="exportOutput" rows="14" readonly aria-label="Export output"></textarea>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <template id="contactCardTemplate">
+      <article class="contact-card">
+        <div class="contact-topline">
+          <div>
+            <h3></h3>
+            <p class="contact-role"></p>
+          </div>
+          <span class="score-pill"></span>
+        </div>
+        <p class="contact-summary"></p>
+        <div class="tag-row"></div>
+        <div class="next-action"></div>
+        <details>
+          <summary>Follow-up draft</summary>
+          <pre></pre>
+        </details>
+      </article>
+    </template>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>

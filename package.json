@@ -1,0 +1,23 @@
+{
+  "name": "data-ai-summit-relationship-agent",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A small applied AI workflow app for turning conference conversations into structured follow-ups, fit signals, and next actions.",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "classify": "node scripts/classify-notes.mjs data/sample-notes.json",
+    "classify:file": "node scripts/classify-notes.mjs",
+    "check": "node scripts/check.mjs"
+  },
+  "keywords": [
+    "forward-deployed-engineering",
+    "applied-ai",
+    "relationship-intelligence",
+    "conference-workflow",
+    "workflow-automation",
+    "technical-discovery"
+  ],
+  "author": "Riley Spiller",
+  "license": "MIT"
+}
