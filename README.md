@@ -52,6 +52,12 @@ Run the CLI classifier:
 npm run classify
 ```
 
+View a generated sample output packet:
+
+```text
+outputs/sample-follow-up-brief.md
+```
+
 Run the project check:
 
 ```bash
@@ -76,6 +82,7 @@ src/styles.css                Product UI
 data/sample-notes.js          Browser demo data
 data/sample-notes.json        CLI demo data
 data/target-companies.js      Target-company fit model
+outputs/sample-follow-up-brief.md  Generated sample relationship packet
 scripts/classify-notes.mjs    CLI classifier
 scripts/serve.mjs             Zero-dependency local server
 scripts/check.mjs             Smoke check
